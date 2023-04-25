@@ -1,0 +1,41 @@
+:root {
+    --primary-color: #259891;
+    --grey-0: #f2f2f2;
+    --grey-1: #e6e6e6;
+    --grey-2: #cccccc;
+    --grey-3: #b3b3b3;
+}
+* {
+    box-sizing: border-box;
+}
+body {
+    background-color: var(--grey-1);
+    margin: 0;
+}
+.navbar {
+    background-color: var(--primary-color);
+    color: whitesmoke;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    padding: 0.6rem 1rem;
+}
+.navbar > ul {
+    display: flex;
+    place-items: center;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    gap: 1rem;
+}
+.navbar > ul > li > a {
+    color: inherit;
+    text-decoration: none;
+}
+.navbar .profile-card {
+    color: black;
+    transform: translateX(-60%);
+    top: 2%;
+    z-index: 1;
+}
