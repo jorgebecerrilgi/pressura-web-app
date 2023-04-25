@@ -1,6 +1,8 @@
 import style from "./PatientList.module.css";
 import Card from "./Card";
-// import { useEffect, useState } from "react";
+import PatientItem from "./PatientItem";
+import SearchBar from "./SearchBar";
+import { useEffect, useState } from "react";
 // import Card from "./Card";
 // import CardItem from "./CardItem";
 // import SearchBar from "./SearchBar";
@@ -10,8 +12,8 @@ import Card from "./Card";
 // import { onAuthStateChanged } from "firebase/auth";
 
 const PatientList = ({ selectedUser, onClickCardItem, onClickAdd }) => {
-    // const [users, setUsers] = useState([]);
-    // const [search, setSearch] = useState("");
+    const [users, setUsers] = useState([{name: "Jorge", id:"123"}]);
+    const [search, setSearch] = useState("");
     // const [sessionEmail, setSessionEmail] = useState("");
 
     // const buildUsers = (users) => {
@@ -55,18 +57,18 @@ const PatientList = ({ selectedUser, onClickCardItem, onClickAdd }) => {
                 // onClickAdd={onClickAdd} 
             />
             <div className={style.items}>
-                {/* {users.map((user, index) => {
+                {users.map((user, index) => {
                     if (!user.name.toLowerCase().startsWith(search)) return;
                     return (
-                        <CardItem
+                        <PatientItem
                             firstName={user.name}
                             lastName={user.id}
                             selected={index === selectedUser ? true : false}
                             key={index}
-                            onClick={() => onClickCardItem(index, user.id)}
+                            // onClick={() => onClickCardItem(index, user.id)}
                         />
                     );
-                })} */}
+                })}
             </div>
         </Card>
     );
