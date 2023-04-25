@@ -1,0 +1,30 @@
+.patientItem {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    border-bottom: 3px solid var(--grey-1);
+    cursor: pointer;
+    user-select: none;
+}
+.patientItem:hover {
+    background-color: var(--grey-0);
+}
+.unselected,
+.selected {
+    background-color: var(--primary-color);
+    width: 0.5rem;
+    visibility: hidden;
+}
+.selected {
+    visibility: visible;
+}
+.info {
+    display: flex;
+    flex-direction: row;
+    place-items: center;
+    gap: 1.5rem;
+    padding: 1rem 0;
+}
+.subtext {
+    color: grey;
+}
