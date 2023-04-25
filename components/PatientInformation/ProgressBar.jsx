@@ -1,8 +1,9 @@
 import style from "./ProgressBar.module.css";
 
+const MIN = 0;
+const MAX = 100;
+
 const ProgressBar = ({ value }) => {
-    const MIN = 0;
-    const MAX = 100;
     const percentage = `${Math.min(Math.max(value, MIN), MAX)}%`;
 
     return (

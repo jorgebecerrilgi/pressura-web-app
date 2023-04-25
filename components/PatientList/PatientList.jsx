@@ -1,5 +1,5 @@
 import style from "./PatientList.module.css";
-import Card from "./Card";
+import Card from "../Card";
 import PatientItem from "./PatientItem";
 import SearchBar from "./SearchBar";
 import { useEffect, useState } from "react";
