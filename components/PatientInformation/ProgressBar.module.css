@@ -1,0 +1,23 @@
+.progressBar {
+    background-color: var(--grey-2);
+    width: 100%;
+    height: 3rem;
+    border-radius: 0.1rem;
+    overflow: hidden;
+    margin: 0.5rem 0 0.5rem 0;
+    position: relative;
+}
+.progress {
+    background-color: var(--primary-color);
+    height: 100%;
+    text-align: center;
+}
+.text {
+    color: var(--grey-0);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -55%);
+    margin: 0;
+    padding: 0;
+}
