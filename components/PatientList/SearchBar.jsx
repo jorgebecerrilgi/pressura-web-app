@@ -1,8 +1,12 @@
+"use client";
+
 import style from "./SearchBar.module.css";
 import { useState } from "react";
 
 const SearchBar = ({ onClickSearch, onClickAdd }) => {
     const [search, setSearch] = useState("");
+
+    const submitSearch = () => onClickSearch(search.trim().toLowerCase());
 
     return (
         <div className={style.searchBar}>
@@ -11,16 +15,17 @@ const SearchBar = ({ onClickSearch, onClickAdd }) => {
                 placeholder="Buscar"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
+                onKeyDown={(e) => {
+                    if (e.code === "Enter" && !e.repeat) submitSearch();
+                }}
             />
             <div
                 className={style.iconSearch}
-                onClick={() => onClickSearch(search.trim().toLowerCase())}
+                onClick={() => submitSearch()}
             ></div>
-            <div className={style.add}>
-                <a href="#" onClick={onClickAdd}>
-                    <p>+</p>
-                </a>
-            </div>
+            <button type="button" className={style.add} onClick={onClickAdd}>
+                +
+            </button>
         </div>
     );
 };

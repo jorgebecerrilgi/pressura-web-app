@@ -32,9 +32,14 @@ body {
     list-style: none;
     gap: 1rem;
 }
-.navbar > ul > li > a {
+.navbar > ul > li > button {
     color: inherit;
+    font: inherit;
     text-decoration: none;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
 }
 .navbar .profile-card {
     color: black;
