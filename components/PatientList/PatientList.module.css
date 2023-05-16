@@ -3,7 +3,7 @@
 }
 @media (max-width: 480px) {
     .patientList {
-        height: calc(50vh - 6rem);
+        height: calc(50vh - 6rem) !important;
     }
 }
 .items {

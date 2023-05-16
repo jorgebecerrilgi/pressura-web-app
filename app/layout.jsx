@@ -1,8 +1,7 @@
 import "./globals.css";
 import Link from "next/link";
-import SignOut from "./SignOut";
-import Profile from "./Profile";
 import ContextProvider from "./ContextProvider";
+import NavbarButtons from "./NavbarButtons";
 
 const NavBar = () => {
     return (
@@ -11,12 +10,7 @@ const NavBar = () => {
                 <img src="/pressura-logo-white.png" height="32px"></img>
             </Link>
             <ul>
-                <li>
-                    <SignOut />
-                </li>
-                <li>
-                    <Profile />
-                </li>
+                <NavbarButtons />
             </ul>
         </nav>
     );

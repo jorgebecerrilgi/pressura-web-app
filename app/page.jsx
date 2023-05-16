@@ -4,7 +4,7 @@ import PatientInformation from "@/components/PatientInformation/PatientInformati
 
 const Home = () => {
     return (
-        <div className="app">
+        <main className={style.app}>
             <div className={style.content}>
                 <PatientList />
                 <PatientInformation
@@ -13,7 +13,7 @@ const Home = () => {
                     INVALID_INDEX={0}
                 ></PatientInformation>
             </div>
-        </div>
+        </main>
     );
 };
 
