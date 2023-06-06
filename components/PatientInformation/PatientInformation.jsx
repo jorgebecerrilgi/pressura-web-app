@@ -12,7 +12,7 @@ import Skeleton from "../Skeleton";
 
 const fetchInformation = async (email) => {
     const snap = await getDocs(query(collection(db, "Paciente"), where("IDPaciente", "==", email)));
-    return snap.size > 0 ? snap.docs[0].data() : {};
+    return snap.size > 0 ? snap.docs[0] : {};
 };
 
 const fetchHabits = async (email) => {
@@ -21,18 +21,21 @@ const fetchHabits = async (email) => {
 };
 
 const PatientInformation = () => {
-    const [information, setInformation] = useState({});
+    const [informationDoc, setInformationDoc] = useState({});
     const [habitsData, setHabitsData] = useState({});
-    const { selectedPatient, updateData } = useContext(AppContext);
+    const { selectedPatient } = useContext(AppContext);
+
+    // Gets the data from the information document.
+    const information = Object.keys(informationDoc).length > 0 ? informationDoc.data() : {};
 
     useEffect(() => {
-        setInformation({});
+        setInformationDoc({});
         setHabitsData({});
         if (selectedPatient === null) return;
         const fetchData = async () => {
             // Información del paciente.
             const patientInformation = await fetchInformation(selectedPatient.email);
-            setInformation(patientInformation);
+            setInformationDoc(patientInformation);
             // Habitos.
             const patientHabits = await fetchHabits(selectedPatient.email);
             const habitsAverages = patientHabits.reduce(
@@ -191,7 +194,7 @@ const PatientInformation = () => {
                     </li>
                 </ul>
             </div>
-            <Link href="/patient?id=1" className={style.button}>
+            <Link href={`/patient?id=${informationDoc.id}`} className={style.button}>
                 Ver más
             </Link>
         </Card>

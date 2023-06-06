@@ -1,0 +1,21 @@
+.patientCard {
+    padding: 2rem;
+    flex: 6;
+}
+.patientCard > h2 {
+    margin-bottom: 0.25em;
+}
+.botonCsv {
+    background-color: #259891;
+    color: whitesmoke;
+    width: -moz-fit-content;
+    width: fit-content;
+    border-radius: 0.5rem;
+    padding: 1rem 2rem;
+    border: none;
+}
+.patientCard > .measurements {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 2em;
+}

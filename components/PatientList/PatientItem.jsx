@@ -10,7 +10,6 @@ const PatientItem = ({ name, email }) => {
     const userData = {
         name: name,
         email: email,
-        age: 20,
     };
 
     const selected = selectedPatient?.email === email;
