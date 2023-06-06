@@ -6,7 +6,7 @@ export const AppContext = createContext({});
 
 const DEFAULT_DATA = {
     account: null,
-    selectedUser: null,
+    selectedPatient: null,
 };
 
 const ContextProvider = ({ children }) => {

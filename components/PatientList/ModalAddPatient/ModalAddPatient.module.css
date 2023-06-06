@@ -1,0 +1,66 @@
+.addPatientCard {
+    width: 100%;
+    max-width: 360px;
+}
+.addPatientCard .addPatientBody {
+    padding: 2rem;
+}
+.addPatientCard ul.listSections {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+.addPatientCard ul.listSections li {
+    list-style: none;
+    flex: 1;
+    background-color: var(--grey-0);
+}
+.addPatientCard ul.listSections li.selected {
+    background-color: white;
+}
+.addPatientCard ul.listSections li button {
+    background-color: inherit;
+    color: inherit;
+    font: inherit;
+    width: 100%;
+    height: 100%;
+    padding: 1rem 0;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+.addPatientCard ul.listButtons {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 2rem;
+    justify-content: space-evenly;
+}
+.addPatientCard ul.listButtons li {
+    width: 40%;
+    border-radius: 0.5rem;
+    text-align: center;
+}
+.addPatientCard ul.listButtons li button {
+    background-color: inherit;
+    border-radius: inherit;
+    color: inherit;
+    font: inherit;
+    padding: 0.8rem;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+.addPatientCard ul.listButtons li.buttonCreate {
+    background-color: var(--primary-color);
+    color: var(--grey-0);
+}
+.addPatientCard ul.listButtons li.buttonCancel {
+    color: grey;
+    outline: 2px solid var(--grey-2);
+    outline-offset: -2px;
+}

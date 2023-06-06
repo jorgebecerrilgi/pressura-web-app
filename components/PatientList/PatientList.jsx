@@ -2,45 +2,67 @@
 
 import style from "./PatientList.module.css";
 import Card from "../Card";
+import Modal from "../Modal";
 import PatientItem from "./PatientItem";
 import SearchBar from "./SearchBar";
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "@/src/firebase";
+import ModalConfirm from "../ModalConfirm";
+import ModalAddPatient from "./ModalAddPatient/ModalAddPatient";
 
-const PLACEHOLDER_USERS = [
-    { name: "Ana Almendarez", id: "ana@mail.com" },
-    { name: "Bianca Blaz", id: "bianca@mail.com" },
-    { name: "Carlos", id: "carlos@mail.com" },
-    { name: "Diana Dominguez", id: "diana@mail.com" },
-    { name: "Esteban Elver", id: "esteban@mail.com" },
-    { name: "Felipe Franco", id: "felipe@mail.com" },
-    { name: "Gerardo Gonzalez", id: "gerarado@mail.com" },
-];
+const fetchPatients = async (doctorEmail, search) => {
+    const col = collection(db, "PacienteConDoctores");
+    const constraints = [where("IDDoctor", "==", doctorEmail), where("Relacion", "==", 3)];
+    // Queries all patients if search bar is empty.
+    if (search === "") {
+        var snap = await getDocs(query(col, ...constraints));
+    }
+    // Queries patients starting with search.
+    else {
+        var snap = await getDocs(
+            query(
+                col,
+                ...constraints,
+                where("NombrePaciente", ">=", search),
+                where("NombrePaciente", "<", search + "\uf8ff")
+            )
+        );
+    }
+    return snap.docs.map((doc) => doc.data());
+};
 
 const PatientList = ({}) => {
-    const [users, setUsers] = useState(PLACEHOLDER_USERS);
+    const [patients, setPatients] = useState([]);
     const [search, setSearch] = useState("");
+    const [isModalAdd, setIsModalAdd] = useState(false);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const patientsArr = await fetchPatients("drjoseluis@hotmail.com", search);
+            setPatients(patientsArr);
+        };
+        fetchData();
+    }, [search]);
 
     return (
         <Card className={style.patientList}>
-            <SearchBar
-                onClickSearch={setSearch}
-                // onClickAdd={onClickAdd}
-            />
+            <SearchBar onClickSearch={setSearch} onClickAdd={() => setIsModalAdd(true)} />
             <div className={style.items}>
-                {users
-                    .filter((user) => {
-                        return user.name.toLowerCase().includes(search);
-                    })
-                    .map((user) => {
-                        return (
-                            <PatientItem
-                                name={user.name}
-                                email={user.id}
-                                key={user.id}
-                            />
-                        );
-                    })}
+                {patients.map((patient) => {
+                    return (
+                        <PatientItem
+                            name={patient.NombrePaciente}
+                            email={patient.IDPaciente}
+                            key={patient.IDPaciente}
+                        />
+                    );
+                })}
             </div>
+            {/* <ModalConfirm open title="Cerrar Sesión">
+                ¿Seguro que quieres cerrar sesión?
+            </ModalConfirm> */}
+            <ModalAddPatient open={isModalAdd} onClose={() => setIsModalAdd(false)}></ModalAddPatient>
         </Card>
     );
 };

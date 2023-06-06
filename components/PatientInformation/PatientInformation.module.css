@@ -32,25 +32,31 @@
     text-align: start;
     column-count: 3;
     overflow-wrap: anywhere;
+    margin-bottom: 1.5rem;
 }
 .profileIcon {
-    height: 100px;
-    width: 100px;
+    height: 80px;
+    width: 80px;
     margin: 1rem auto;
     border-radius: 10%;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 .profileIcon > p {
     font: inherit;
-    color:whitesmoke;
+    color: whitesmoke;
     font-size: xx-large;
+    margin: 0;
 }
 .title {
     color: lightslategrey;
 }
+.title.smallLabel {
+    font-size: 0.8rem;
+}
 .dataLabels li {
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 .patientInformation a {
     text-decoration: none;
@@ -62,6 +68,7 @@
     width: fit-content;
     border-radius: 0.5rem;
     padding: 1rem 2rem;
+    margin-block: 1rem;
 }
 .dataHabits {
     margin: 0;
@@ -70,9 +77,8 @@
     list-style: none;
     place-self: start;
     text-align: start;
-    columns: 2;
 }
-.data-habits li {
+.dataHabits li {
     overflow: auto;
 }
 @media (max-width: 480px) {

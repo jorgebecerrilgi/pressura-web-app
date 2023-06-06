@@ -1,0 +1,10 @@
+.modal {
+    background-color: white;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    padding: 0;
+}
+.modal::backdrop {
+    background-color: #00000099;
+}

@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { AppContext } from "@/app/ContextProvider";
 
 const PatientItem = ({ name, email }) => {
-    const { selectedUser, updateData } = useContext(AppContext);
+    const { selectedPatient, updateData } = useContext(AppContext);
 
     const userData = {
         name: name,
@@ -13,9 +13,9 @@ const PatientItem = ({ name, email }) => {
         age: 20,
     };
 
-    const selected = selectedUser?.email === email;
+    const selected = selectedPatient?.email === email;
     const toggleSelected = () => {
-        updateData("selectedUser", selected ? null : userData);
+        updateData("selectedPatient", selected ? null : userData);
     };
 
     const firstLetter = name.charAt(0);
