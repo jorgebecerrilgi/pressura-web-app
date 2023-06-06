@@ -39,7 +39,7 @@ const deleteRequest = async (requestID) => {
     }
 };
 
-const RequestItem = ({ name, email, docID }) => {
+const RequestItem = ({ name, email, docID, onResolved }) => {
     const [action, setAction] = useState(null);
     const { account } = useContext(AppContext);
 
@@ -59,6 +59,7 @@ const RequestItem = ({ name, email, docID }) => {
                 await deleteRequest(docID);
             }
             close();
+            onResolved();
         } catch (err) {
             console.error(err);
         }

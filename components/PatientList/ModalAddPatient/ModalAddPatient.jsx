@@ -47,9 +47,7 @@ const ModalAddPatient = ({ open, onClose }) => {
     const [tabIndex, setTabIndex] = useState(0);
     const [patientID, setPatientID] = useState("");
     const [requests, setRequests] = useState([]);
-    const { account } = useContext(AppContext);
-
-    useEffect(() => console.log(patientID), [patientID]);
+    const { account, updateData } = useContext(AppContext);
 
     // Fetches requests.
     useEffect(() => {
@@ -120,6 +118,11 @@ const ModalAddPatient = ({ open, onClose }) => {
                                     name={request.NombrePaciente}
                                     email={request.IDPaciente}
                                     docID={requestDoc.id}
+                                    onResolved={() => {
+                                        setRequests(requests.filter((reqDoc) => reqDoc.id !== requestDoc.id));
+                                        // Tells the PatientList that it should refetch.
+                                        updateData("shouldPatientListUpdate", true);
+                                    }}
                                 />
                             );
                         })

@@ -35,16 +35,27 @@ const PatientList = ({}) => {
     const [patients, setPatients] = useState([]);
     const [search, setSearch] = useState("");
     const [isModalAdd, setIsModalAdd] = useState(false);
-    const { account } = useContext(AppContext);
+    const { account, shouldPatientListUpdate, updateData } = useContext(AppContext);
 
-    useEffect(() => {
+    // Fetches the patients.
+    const fetchPatientsWrapper = () => {
         if (account === null) return;
         const fetchData = async () => {
             const patientsArr = await fetchPatients(account.email, search);
             setPatients(patientsArr);
         };
         fetchData();
+    };
+    // Refetches when the search query is changed.
+    useEffect(() => {
+        fetchPatientsWrapper();
     }, [account, search]);
+    // Refetches when it receives a signal.
+    useEffect(() => {
+        if (!shouldPatientListUpdate) return;
+        updateData("shouldPatientListUpdate", false);
+        fetchPatientsWrapper();
+    }, [shouldPatientListUpdate]);
 
     return (
         <Card className={style.patientList}>
@@ -60,9 +71,6 @@ const PatientList = ({}) => {
                     );
                 })}
             </div>
-            {/* <ModalConfirm open title="Cerrar Sesión">
-                ¿Seguro que quieres cerrar sesión?
-            </ModalConfirm> */}
             <ModalAddPatient open={isModalAdd} onClose={() => setIsModalAdd(false)}></ModalAddPatient>
         </Card>
     );
