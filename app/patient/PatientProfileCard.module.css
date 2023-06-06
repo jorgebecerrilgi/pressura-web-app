@@ -27,3 +27,15 @@
 .patientProfileCard li:not(.title) {
     margin-bottom: 1rem;
 }
+.profileIcon {
+    color: whitesmoke;
+    width: 80px;
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: x-large;
+    margin-block: 0.5rem;
+}
