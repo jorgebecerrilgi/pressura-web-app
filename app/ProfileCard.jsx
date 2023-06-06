@@ -1,4 +1,4 @@
-"use static";
+"use client";
 
 import Card from "@/components/Card";
 

@@ -28,7 +28,9 @@ const SearchBar = ({ onClickSearch, onClickAdd }) => {
                     if (e.code === "Enter" && !e.repeat) submitSearch();
                 }}
             />
-            <div className={style.iconSearch} onClick={() => submitSearch()}></div>
+            <div className={style.iconSearch} onClick={() => submitSearch()}>
+                <img src="/icon-search.png" alt="" />
+            </div>
             <button type="button" className={style.add} onClick={onClickAdd}>
                 +
             </button>

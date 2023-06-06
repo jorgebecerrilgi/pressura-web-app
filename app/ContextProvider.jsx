@@ -1,6 +1,8 @@
 "use client";
 
-import { useState, createContext } from "react";
+import { auth } from "@/src/firebase";
+import { onAuthStateChanged } from "firebase/auth";
+import { useState, createContext, useEffect } from "react";
 
 export const AppContext = createContext({});
 
@@ -19,11 +21,16 @@ const ContextProvider = ({ children }) => {
         });
     };
 
-    return (
-        <AppContext.Provider value={{ ...data, updateData: updateData }}>
-            {children}
-        </AppContext.Provider>
-    );
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user === null) return;
+            updateData("account", user);
+        });
+    }, []);
+
+    useEffect(() => console.log(data), [data]);
+
+    return <AppContext.Provider value={{ ...data, updateData: updateData }}>{children}</AppContext.Provider>;
 };
 
 export default ContextProvider;

@@ -2,14 +2,13 @@
 
 import style from "./PatientList.module.css";
 import Card from "../Card";
-import Modal from "../Modal";
 import PatientItem from "./PatientItem";
 import SearchBar from "./SearchBar";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useContext } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "@/src/firebase";
-import ModalConfirm from "../ModalConfirm";
 import ModalAddPatient from "./ModalAddPatient/ModalAddPatient";
+import { AppContext } from "@/app/ContextProvider";
 
 const fetchPatients = async (doctorEmail, search) => {
     const col = collection(db, "PacienteConDoctores");
@@ -36,14 +35,16 @@ const PatientList = ({}) => {
     const [patients, setPatients] = useState([]);
     const [search, setSearch] = useState("");
     const [isModalAdd, setIsModalAdd] = useState(false);
+    const { account } = useContext(AppContext);
 
     useEffect(() => {
+        if (account === null) return;
         const fetchData = async () => {
-            const patientsArr = await fetchPatients("drjoseluis@hotmail.com", search);
+            const patientsArr = await fetchPatients(account.email, search);
             setPatients(patientsArr);
         };
         fetchData();
-    }, [search]);
+    }, [account, search]);
 
     return (
         <Card className={style.patientList}>

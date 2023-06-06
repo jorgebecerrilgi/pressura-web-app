@@ -1,6 +1,6 @@
 .searchBar {
     background-color: var(--grey-0);
-    height: fit-content;
+    height: 54px;
     display: flex;
     flex-direction: row;
     border-radius: 0.5rem;
@@ -15,13 +15,13 @@
     outline: none;
 }
 .iconSearch {
-    /* background-image: url(../assets/imgs/icon-search.png); */
-    background-repeat: no-repeat;
-    background-size: 50%;
-    background-position: center center;
-    background-color: var(--grey-0);
-    width: 4rem;
+    translate: 0 2px;
+    padding-inline: 0.5rem;
+    align-self: center;
     cursor: pointer;
+}
+.iconSearch > img {
+    width: 2rem;
 }
 .add {
     background-color: var(--primary-color);

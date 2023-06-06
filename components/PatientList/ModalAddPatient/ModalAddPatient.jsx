@@ -1,17 +1,39 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Modal from "../../Modal";
 import styles from "./ModalAddPatient.module.css";
 import Tab from "./Tab";
 import InputElement from "./InputElement";
 import RequestItem from "./RequestItem";
+import { AppContext } from "@/app/ContextProvider";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "@/src/firebase";
+
+const fetchRequests = async (doctorEmail) => {
+    const col = collection(db, "PacienteConDoctores");
+    var snap = await getDocs(query(col, where("IDDoctor", "==", doctorEmail), where("Relacion", "==", 1)));
+    return snap.docs.map((doc) => doc.data());
+};
 
 const ModalAddPatient = ({ open, onClose }) => {
     const [tabIndex, setTabIndex] = useState(0);
     const [patientID, setPatientID] = useState("");
     const [requests, setRequests] = useState([]);
+    const { account } = useContext(AppContext);
 
+    // Fetches requests.
+    useEffect(() => {
+        if (account === null || open === false) return;
+        const fetchData = async () => {
+            const requestsArr = await fetchRequests(account.email);
+            setRequests(requestsArr);
+            console.log(requestsArr);
+        };
+        fetchData();
+    }, [account, open]);
+
+    // Resets to Tab 1 when closed.
     useEffect(() => setTabIndex(0), [open]);
 
     return (
@@ -51,9 +73,9 @@ const ModalAddPatient = ({ open, onClose }) => {
                         requests.map((request) => {
                             return (
                                 <RequestItem
-                                    key={request.id}
-                                    name={request.name}
-                                    email={request.id}
+                                    key={request.IDPaciente}
+                                    name={request.NombrePaciente}
+                                    email={request.IDPaciente}
                                     onAccept={() => {}}
                                     onDeny={() => {}}
                                 />
