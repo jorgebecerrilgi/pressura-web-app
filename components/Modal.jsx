@@ -20,6 +20,7 @@ const Modal = ({ open = false, className, children, onClose }) => {
             onClose={() => onClose()}
             onClick={(e) => {
                 if (e.target.tagName !== "DIALOG") return;
+                e.stopPropagation();
                 onClose();
             }}
         >
