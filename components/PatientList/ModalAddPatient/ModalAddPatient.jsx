@@ -13,7 +13,7 @@ import { db } from "@/src/firebase";
 const fetchRequests = async (doctorEmail) => {
     const col = collection(db, "PacienteConDoctores");
     const snap = await getDocs(query(col, where("IDDoctor", "==", doctorEmail), where("Relacion", "==", 1)));
-    return snap.docs.map((doc) => doc.data());
+    return snap.docs;
 };
 
 const createRequest = async (doctorEmail, patientEmail, doctorUID) => {
@@ -57,7 +57,6 @@ const ModalAddPatient = ({ open, onClose }) => {
         const fetchData = async () => {
             const requestsArr = await fetchRequests(account.email);
             setRequests(requestsArr);
-            console.log(requestsArr);
         };
         fetchData();
     }, [account, open]);
@@ -113,14 +112,14 @@ const ModalAddPatient = ({ open, onClose }) => {
                 </Tab>
                 <Tab index={1} currentIndex={tabIndex}>
                     {requests.length > 0 ? (
-                        requests.map((request) => {
+                        requests.map((requestDoc) => {
+                            const request = requestDoc.data();
                             return (
                                 <RequestItem
                                     key={request.IDPaciente}
                                     name={request.NombrePaciente}
                                     email={request.IDPaciente}
-                                    onAccept={() => {}}
-                                    onDeny={() => {}}
+                                    docID={requestDoc.id}
                                 />
                             );
                         })
