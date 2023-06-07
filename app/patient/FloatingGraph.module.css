@@ -1,0 +1,102 @@
+.floatingGraph > .buttons {
+    display: flex;
+    align-items: flex-start;
+    justify-content: end;
+    gap: 32px;
+}
+.floatingGraph > .top {
+    display: flex;
+}
+.floatingGraph > .top > .yAxis {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+    color: slategrey;
+    width: 1.6rem;
+}
+.floatingGraph > .top > .graphArea {
+    flex: auto;
+    position: relative;
+    margin-left: 1rem;
+}
+.floatingGraph > .top > .graphArea > .bar {
+    position: absolute;
+    background-color: red;
+    width: 100px;
+    height: 100px;
+}
+.floatingGraph > .top > .graphArea > .band {
+    position: absolute;
+    background-color: rgba(64, 164, 75, 0.15);
+}
+.floatingGraph > .bottom {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    padding-left: 24px;
+    color: slategray;
+}
+.floatingGraph > .top > .graphArea > .measurementCard {
+    position: absolute;
+    width: max-content;
+    height: min-content;
+    min-width: 10rem;
+    border-radius: 4px;
+    background-color: white;
+    box-shadow: 0 8px 24px 0 rgba(16, 16, 16, 0.2);
+    padding: 0 1rem 1rem 1rem;
+}
+.floatingGraph > .top > .graphArea > .measurementCard > p {
+    margin: 0;
+}
+.floatingGraph > .top > .graphArea > .measurementCard > p.title {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
+    color: rgb(32, 32, 32);
+}
+.floatingGraph > .habits {
+    display: flex;
+    margin-top: 24px;
+}
+.floatingGraph > .habits > .types {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    width: 1.6rem;
+    padding-block: 6px;
+}
+.floatingGraph > .habits > .types > img.icon {
+    width: 100%;
+    filter: contrast(0);
+}
+.floatingGraph > .habits > .dataArea {
+    display: flex;
+    flex: auto;
+    flex-direction: column;
+    position: relative;
+    margin-left: 1rem;
+    gap: 8px;
+    padding-block: 4px;
+}
+.floatingGraph > .habits > .dataArea > .row {
+    display: flex;
+    flex-grow: 1;
+    gap: 8px;
+    padding-inline: 1vw;
+}
+.floatingGraph > .habits > .dataArea > .row > .dayData:first-child {
+    border-end-start-radius: 16px;
+    border-top-left-radius: 16px;
+}
+.floatingGraph > .habits > .dataArea > .row > .dayData:last-child {
+    border-end-end-radius: 16px;
+    border-top-right-radius: 16px;
+}
+.floatingGraph > .habits > .dataArea > .row > .dayData {
+    background-color: hsl(120, 100%, 25%);
+    width: 100%;
+    height: 100%;
+}
