@@ -1,0 +1,40 @@
+.floatingBar {
+    position: absolute;
+    background-color: hsl(120, 32%, 50%);
+}
+.line,
+.midLine,
+.topLine,
+.bottomLine {
+    position: absolute;
+    background-color: darkslategrey;
+    height: 0.1rem;
+    opacity: 0.5;
+}
+.verticalLine {
+    position: absolute;
+    background-color: darkslategray;
+    width: 0.1rem;
+    opacity: 0.3;
+}
+.midLine {
+    opacity: 1;
+}
+.floatingCircle {
+    position: absolute;
+    background-color: darkslategray;
+    width: 2vw;
+    height: 2vw;
+    min-width: 25px;
+    min-height: 25px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+    color: whitesmoke;
+    user-select: none;
+}
+.floatingCircle:hover {
+    cursor: pointer;
+}

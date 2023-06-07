@@ -1,0 +1,15 @@
+button.graphButton {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    outline: inherit;
+}
+button.graphButton > div.buttonLine {
+    background-color: var(--primary-color);
+    height: 0.3em;
+    margin-top: 0.3em;
+}
