@@ -1,10 +1,12 @@
 .progressBar {
     background-color: var(--grey-2);
-    width: 100%;
-    height: 3rem;
-    border-radius: 0.1rem;
+    width: 60%;
+    max-width: 100%;
+    min-width: 240px;
+    height: 2rem;
+    border-radius: 120px;
     overflow: hidden;
-    margin: 0.5rem 0 0.5rem 0;
+    margin: 0 0 0.75rem 0;
     position: relative;
 }
 .progress {
@@ -20,4 +22,12 @@
     transform: translate(-50%, -55%);
     margin: 0;
     padding: 0;
+}
+.barIcon {
+    height: 100%;
+    aspect-ratio: 1;
+    padding: 0.2rem;
+    margin-left: 0.3rem;
+    position: absolute;
+    filter: invert();
 }

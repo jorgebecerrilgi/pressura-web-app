@@ -1,75 +1,77 @@
+"use client";
+
 import style from "./PatientList.module.css";
 import Card from "../Card";
 import PatientItem from "./PatientItem";
 import SearchBar from "./SearchBar";
-import { useEffect, useState } from "react";
-// import Card from "./Card";
-// import CardItem from "./CardItem";
-// import SearchBar from "./SearchBar";
-// import "./PatientsCard.css";
-// import { collection, getDocs, limit, query, where } from "firebase/firestore";
-// import { auth, db } from "../firebase";
-// import { onAuthStateChanged } from "firebase/auth";
+import { useEffect, useState, useContext } from "react";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "@/src/firebase";
+import ModalAddPatient from "./ModalAddPatient/ModalAddPatient";
+import { AppContext } from "@/app/ContextProvider";
 
-const PatientList = ({ selectedUser, onClickCardItem, onClickAdd }) => {
-    const [users, setUsers] = useState([{name: "Jorge", id:"123"}]);
+const fetchPatients = async (doctorEmail, search) => {
+    const col = collection(db, "PacienteConDoctores");
+    const constraints = [where("IDDoctor", "==", doctorEmail), where("Relacion", "==", 3)];
+    // Queries all patients if search bar is empty.
+    if (search === "") {
+        var snap = await getDocs(query(col, ...constraints));
+    }
+    // Queries patients starting with search.
+    else {
+        var snap = await getDocs(
+            query(
+                col,
+                ...constraints,
+                where("NombrePaciente", ">=", search),
+                where("NombrePaciente", "<", search + "\uf8ff")
+            )
+        );
+    }
+    return snap.docs.map((doc) => doc.data());
+};
+
+const PatientList = ({}) => {
+    const [patients, setPatients] = useState([]);
     const [search, setSearch] = useState("");
-    // const [sessionEmail, setSessionEmail] = useState("");
+    const [isModalAdd, setIsModalAdd] = useState(false);
+    const { account, shouldPatientListUpdate, updateData } = useContext(AppContext);
 
-    // const buildUsers = (users) => {
-    //   let arr = [];
-    //   users.forEach((user) => {
-    //     user = user.data();
-    //     arr.push({
-    //       id: user.IDPaciente,
-    //       name: user.NombrePaciente,
-    //     });
-    //   });
-    //   return arr;
-    // };
-
-    // const readUsers = async (doctorEmail) => {
-    //   const snap = await getDocs(
-    //     query(
-    //       collection(db, "PacienteConDoctores"),
-    //       where("IDDoctor", "==", doctorEmail),
-    //       where("Relacion", "==", 3)
-    //     )
-    //   );
-    //   setUsers(buildUsers(snap));
-    // };
-
-    // useEffect(() => {
-    //   onAuthStateChanged(auth, (userSession) => {
-    //     if (userSession !== null) {
-    //       setSessionEmail(userSession.email);
-    //       readUsers(userSession.email);
-    //     } else {
-    //       console.alert("No estás conectado ha una cuenta.");
-    //     }
-    //   });
-    // }, []);
+    // Fetches the patients.
+    const fetchPatientsWrapper = () => {
+        if (account === null) return;
+        const fetchData = async () => {
+            const patientsArr = await fetchPatients(account.email, search);
+            setPatients(patientsArr);
+        };
+        fetchData();
+    };
+    // Refetches when the search query is changed.
+    useEffect(() => {
+        fetchPatientsWrapper();
+    }, [account, search]);
+    // Refetches when it receives a signal.
+    useEffect(() => {
+        if (!shouldPatientListUpdate) return;
+        updateData("shouldPatientListUpdate", false);
+        fetchPatientsWrapper();
+    }, [shouldPatientListUpdate]);
 
     return (
         <Card className={style.patientList}>
-            <SearchBar 
-                // onClickSearch={setSearch} 
-                // onClickAdd={onClickAdd} 
-            />
+            <SearchBar onClickSearch={setSearch} onClickAdd={() => setIsModalAdd(true)} />
             <div className={style.items}>
-                {users.map((user, index) => {
-                    if (!user.name.toLowerCase().startsWith(search)) return;
+                {patients.map((patient) => {
                     return (
                         <PatientItem
-                            firstName={user.name}
-                            lastName={user.id}
-                            selected={index === selectedUser ? true : false}
-                            key={index}
-                            // onClick={() => onClickCardItem(index, user.id)}
+                            name={patient.NombrePaciente}
+                            email={patient.IDPaciente}
+                            key={patient.IDPaciente}
                         />
                     );
                 })}
             </div>
+            <ModalAddPatient open={isModalAdd} onClose={() => setIsModalAdd(false)}></ModalAddPatient>
         </Card>
     );
 };

@@ -1,0 +1,42 @@
+.modalConfirm {
+    max-width: 360px;
+    width: 100%;
+}
+.modalConfirm > ul.buttons {
+    display: flex;
+    list-style: none;
+    padding: 1.8rem;
+    margin: 0;
+    justify-content: space-evenly;
+}
+.modalConfirm > ul.buttons > li {
+    width: 40%;
+    border-radius: 0.5rem;
+    text-align: center;
+    cursor: pointer;
+}
+.modalConfirm > ul.buttons > li > button {
+    color: inherit;
+    font: inherit;
+    padding: 0.8rem;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+.modalConfirm > ul.buttons > li.buttonConfirm {
+    background-color: var(--primary-color);
+    color: var(--grey-0);
+}
+.modalConfirm > ul.buttons > li.buttonCancel {
+    color: grey;
+    outline: 2px solid var(--grey-2);
+    outline-offset: -2px;
+}
+.modalConfirm > .confirmBody {
+    padding: 1rem 2rem 1rem 2rem;
+    text-align: center;
+}
+.modalConfirm > .confirmBody > h2 {
+    margin-bottom: 1rem;
+}

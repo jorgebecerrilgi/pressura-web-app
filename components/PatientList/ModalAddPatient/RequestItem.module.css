@@ -1,0 +1,51 @@
+div.requestItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+div.requestItem > div.data {
+    flex: 4;
+}
+div.requestItem > div.data > p {
+    margin: 0;
+    padding: 0;
+    overflow-wrap: anywhere;
+}
+div.requestItem > div.data > p.dataEmail {
+    color: grey;
+}
+div.requestItem > ul {
+    display: flex;
+    place-content: flex-end;
+    flex: 1;
+    text-align: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 0.5rem;
+    place-self: end;
+}
+div.requestItem > ul > li {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+div.requestItem > ul > li > button {
+    background-color: inherit;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+div.requestItem > ul > li > button > img {
+    height: 2rem;
+}
+div.requestItem > ul > li > button > img {
+    background-color: var(--grey-2);
+    border-radius: 50%;
+    padding: 0.2rem;
+}
+div.requestItem > ul > li > button > img.accept {
+    background-color: var(--primary-color);
+}

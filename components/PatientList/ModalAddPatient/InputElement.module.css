@@ -1,0 +1,19 @@
+.inputElement {
+    margin-bottom: 1rem;
+}
+.inputElement p {
+    margin: 0;
+    margin-bottom: 0.5rem;
+}
+.inputElement input {
+    --bottom-color: var(--grey-2);
+    background-color: var(--grey-0);
+    outline: none;
+    border: none;
+    border-bottom: 0.15rem solid var(--bottom-color);
+    padding: 0.6rem;
+    width: 100%;
+}
+.inputElement input:focus {
+    --bottom-color: var(--primary-color);
+}
