@@ -1,0 +1,11 @@
+.measurement > h4 {
+    color: slategray;
+    margin: 0;
+}
+.measurement > span.value {
+    font-size: 2em;
+    margin-right: 8px;
+}
+.measurement > span.units {
+    color: slategray;
+}

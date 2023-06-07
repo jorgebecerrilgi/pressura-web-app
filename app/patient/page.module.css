@@ -5,3 +5,6 @@
     row-gap: 1rem;
     margin: 1rem;
 }
+.patientProfileCard {
+    flex: 1;
+}

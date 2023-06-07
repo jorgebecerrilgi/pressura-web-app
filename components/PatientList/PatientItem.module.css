@@ -1,0 +1,38 @@
+.patientItem {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    border-bottom: 3px solid var(--grey-1);
+    cursor: pointer;
+    user-select: none;
+}
+.patientItem:hover {
+    background-color: var(--grey-0);
+}
+.unselected,
+.selected {
+    background-color: var(--primary-color);
+    width: 0.5rem;
+    visibility: hidden;
+}
+.selected {
+    visibility: visible;
+}
+.info {
+    display: flex;
+    flex-direction: row;
+    place-items: center;
+    width: 100%;
+    gap: 1.5rem;
+    padding: 0.5rem 0;
+}
+.subtext {
+    color: grey;
+}
+.userIcon {
+    color: white;
+    border-radius: 10%;
+    text-align: center;
+    height: 100%;
+    aspect-ratio: 1;
+}
