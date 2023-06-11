@@ -193,6 +193,7 @@ const FloatingGraph = () => {
                         {measurements.map((v, i) => (
                             <div
                                 className={styles.dayData}
+                                key={`Medicamento-${i}-${v.Medicamento}`}
                                 style={{
                                     backgroundColor: `hsl(${1.2 * v.Medicamento}, 100%, 25%)`,
                                 }}
@@ -203,6 +204,7 @@ const FloatingGraph = () => {
                         {measurements.map((v, i) => (
                             <div
                                 className={styles.dayData}
+                                key={`RegimenAlimenticio-${i}-${v.RegimenAlimenticio}`}
                                 style={{
                                     backgroundColor: `hsl(${1.2 * v.RegimenAlimenticio}, 100%, 25%)`,
                                 }}
@@ -213,6 +215,7 @@ const FloatingGraph = () => {
                         {measurements.map((v, i) => (
                             <div
                                 className={styles.dayData}
+                                key={`Ejercicio-${i}-${v.Ejercicio}`}
                                 style={{
                                     backgroundColor: `hsl(${1.2 * v.Ejercicio}, 100%, 25%)`,
                                 }}

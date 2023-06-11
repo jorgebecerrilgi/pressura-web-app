@@ -1,7 +1,7 @@
 .floatingGraph > .buttons {
     display: flex;
     align-items: flex-start;
-    justify-content: end;
+    justify-content: flex-end;
     gap: 32px;
 }
 .floatingGraph > .top {
