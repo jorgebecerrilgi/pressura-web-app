@@ -138,10 +138,10 @@ const FloatingBar = ({
             <div
                 className={styles.floatingCircle}
                 style={{
-                    bottom: `${sistolicaMaxPercentage}%`,
+                    bottom: `${diastolicaMaxPercentage + 1}%`,
                     left: `calc(${{ ...style, ...circleStyle }.left} + ${
                         { ...style, ...circleStyle }.width
-                    } / 1.25 - 1.25vw)`,
+                    } / 1.25 - 0.5vw)`,
                     ...circleStyle,
                 }}
                 onMouseMove={(e) => handleMouseMove(e, diastolica, sistolica)}

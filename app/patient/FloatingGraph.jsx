@@ -11,7 +11,6 @@ function generateMeasurements(dateIndex) {
         // .filter(() => Math.floor(Math.random() * 2));
         .filter(() => Math.floor(Math.random() * 10) > 1);
     return {
-        UIDPaciente: "a0",
         Fecha: new Date(Date.now() - 86400000 * dateIndex),
         Diastolica: diastolicaArray,
         Sistolica: diastolicaArray.map((val) => val - 30 - Math.floor(Math.random() * 20)),
@@ -39,8 +38,8 @@ const calculateAbsolutePositions = (graphAreaElement, left, top) => {
     };
 };
 
-const FloatingGraph = () => {
-    const [measurements, setMeasurements] = useState([]);
+const FloatingGraph = ({ onChange, measurements = [] }) => {
+    // const [measurements, setMeasurements] = useState([]);
     const [cardPosition, setCardPosition] = useState({
         left: null,
         top: null,
@@ -52,14 +51,12 @@ const FloatingGraph = () => {
     const graphAreaRef = useRef(null);
 
     useEffect(() => {
-        console.log(`inCard: ${insideCard} /// inCircle: ${insideCircle}`);
         if (!insideCard && !insideCircle) {
             setCardPosition({ left: null, top: null });
         }
     }, [insideCard, insideCircle]);
 
     const handleMouseMove = (e, diastolica, sistolica) => {
-        console.log(e.clientX);
         setCardPosition({
             left: e.clientX,
             top: e.clientY,
@@ -90,8 +87,27 @@ const FloatingGraph = () => {
     const SKIPS = (topValue - bottomValue) / 13;
 
     useEffect(() => {
-        setMeasurements(Array.from(Array(amountOfDays)).map((v, i) => generateMeasurements(i)));
+        if (onChange != null) {
+            switch (selectedButton) {
+                case 0:
+                    onChange("week");
+                    break;
+                case 1:
+                    onChange("month");
+                    break;
+                case 2:
+                    onChange("trimester");
+                    break;
+                default:
+                    throw new Error(`selectedButton set to invalid index: ${selectedButton}`);
+            }
+        }
+        // setMeasurements(Array.from(Array(amountOfDays)).map((v, i) => generateMeasurements(i)));
     }, [selectedButton]);
+
+    useEffect(() => {
+        console.log(measurements);
+    }, [measurements]);
 
     return (
         <div className={styles.floatingGraph}>
@@ -149,14 +165,14 @@ const FloatingGraph = () => {
                             onMouseEnter={cardHandleMouseEnter}
                             onMouseLeave={cardHandleMouseLeave}
                         >
-                            <p className={styles.title}>Sistolica</p>
-                            {cardPosition.diastolica
+                            <p className={styles.title}>Diastolica</p>
+                            {cardPosition.sistolica
                                 .toSorted((a, b) => b - a)
                                 .map((v) => (
                                     <p key={v}>{v.toFixed(2)} mm/Hg</p>
                                 ))}
-                            <p className={styles.title}>Diastolica</p>
-                            {cardPosition.sistolica
+                            <p className={styles.title}>Sistolica</p>
+                            {cardPosition.diastolica
                                 .toSorted((a, b) => b - a)
                                 .map((v) => (
                                     <p key={v}>{v.toFixed(2)} mm/Hg</p>
@@ -190,37 +206,52 @@ const FloatingGraph = () => {
                 </div>
                 <div className={styles.dataArea}>
                     <div className={styles.row}>
-                        {measurements.map((v, i) => (
-                            <div
-                                className={styles.dayData}
-                                key={`Medicamento-${i}-${v.Medicamento}`}
-                                style={{
-                                    backgroundColor: `hsl(${1.2 * v.Medicamento}, 100%, 25%)`,
-                                }}
-                            ></div>
-                        ))}
+                        {measurements.map((v, i) => {
+                            const exists = v?.Medicamento != null;
+                            const value = exists ? v.Medicamento : 0;
+                            return (
+                                <div
+                                    className={styles.dayData}
+                                    key={`Medicamento-${i}-${value}`}
+                                    style={{
+                                        backgroundColor: `hsl(${1.2 * value}, 100%, 25%)`,
+                                        visibility: exists ? "visible" : "hidden",
+                                    }}
+                                ></div>
+                            );
+                        })}
                     </div>
                     <div className={styles.row}>
-                        {measurements.map((v, i) => (
-                            <div
-                                className={styles.dayData}
-                                key={`RegimenAlimenticio-${i}-${v.RegimenAlimenticio}`}
-                                style={{
-                                    backgroundColor: `hsl(${1.2 * v.RegimenAlimenticio}, 100%, 25%)`,
-                                }}
-                            ></div>
-                        ))}
+                        {measurements.map((v, i) => {
+                            const exists = v?.RegimenAlimenticio != null;
+                            const value = exists ? v.RegimenAlimenticio : 0;
+                            return (
+                                <div
+                                    className={styles.dayData}
+                                    key={`RegimenAlimenticio-${i}-${value}`}
+                                    style={{
+                                        backgroundColor: `hsl(${1.2 * value}, 100%, 25%)`,
+                                        visibility: exists ? "visible" : "hidden",
+                                    }}
+                                ></div>
+                            );
+                        })}
                     </div>
                     <div className={styles.row}>
-                        {measurements.map((v, i) => (
-                            <div
-                                className={styles.dayData}
-                                key={`Ejercicio-${i}-${v.Ejercicio}`}
-                                style={{
-                                    backgroundColor: `hsl(${1.2 * v.Ejercicio}, 100%, 25%)`,
-                                }}
-                            ></div>
-                        ))}
+                        {measurements.map((v, i) => {
+                            const exists = v?.Ejercicio != null;
+                            const value = exists ? v.Ejercicio : 0;
+                            return (
+                                <div
+                                    className={styles.dayData}
+                                    key={`Ejercicio-${i}-${value}`}
+                                    style={{
+                                        backgroundColor: `hsl(${1.2 * value}, 100%, 25%)`,
+                                        visibility: exists ? "visible" : "hidden",
+                                    }}
+                                ></div>
+                            );
+                        })}
                     </div>
                 </div>
             </div>

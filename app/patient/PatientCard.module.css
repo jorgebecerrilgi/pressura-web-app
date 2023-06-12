@@ -1,6 +1,7 @@
 .patientCard {
     padding: 2rem;
     flex: 6;
+    overflow: visible;
 }
 .patientCard > h2 {
     margin-bottom: 0.25em;

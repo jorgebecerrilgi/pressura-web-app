@@ -84,14 +84,14 @@
 .floatingGraph > .habits > .dataArea > .row {
     display: flex;
     flex-grow: 1;
+    flex-direction: row-reverse;
     gap: 8px;
-    padding-inline: 1vw;
 }
-.floatingGraph > .habits > .dataArea > .row > .dayData:first-child {
+.floatingGraph > .habits > .dataArea > .row > .dayData:last-child {
     border-end-start-radius: 16px;
     border-top-left-radius: 16px;
 }
-.floatingGraph > .habits > .dataArea > .row > .dayData:last-child {
+.floatingGraph > .habits > .dataArea > .row > .dayData:first-child {
     border-end-end-radius: 16px;
     border-top-right-radius: 16px;
 }
