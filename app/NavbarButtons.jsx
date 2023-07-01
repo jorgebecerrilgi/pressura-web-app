@@ -9,6 +9,7 @@ import { usePathname, useRouter } from "next/navigation";
 
 const homePath = "/";
 const loginPath = "/login";
+const registerPath = "/register";
 
 const NavbarButtons = () => {
     const [user, setUser] = useState(null);
@@ -20,9 +21,9 @@ const NavbarButtons = () => {
             setUser(user);
 
             if (user === null) {
-                if (pathname !== loginPath) router.push(loginPath);
+                if (pathname !== loginPath && pathname !== registerPath) router.push(loginPath);
             } else {
-                if (pathname === loginPath) router.push(homePath);
+                if (pathname === loginPath || pathname === registerPath) router.push(homePath);
             }
         }, []);
 

@@ -46,8 +46,8 @@ const RequestItem = ({ name, email, docID, onResolved }) => {
     const modalTitle = action === RequestAction.Accept ? "Aceptar solicitud" : "Eliminar solicitud";
     const modalText =
         action === RequestAction.Accept
-            ? "¿Estás seguro que quieres aceptar la solicitud?"
-            : "¿Estás seguro que quieres eliminar la solicitud?";
+            ? `¿Estás seguro que quieres aceptar la solicitud de ${name}?`
+            : `¿Estás seguro que quieres eliminar la solicitud de ${name}?`;
     const modalConfirmLabel = action === RequestAction.Deny ? "Eliminar" : null;
 
     const handleOnConfirm = async (accept) => {

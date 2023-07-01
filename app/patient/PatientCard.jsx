@@ -14,14 +14,14 @@ const DaysInType = {
     trimester: 90,
 };
 
-const calculateAverage = (arr) => Number((arr.reduce((acc, val) => acc + val, 0) / arr.length).toFixed(2));
+const calculateAverage = (arr) => Number((arr.reduce((acc, val) => acc + val, 0) / arr.length).toFixed(0));
 
 const calculateDesviacion = (arr) => {
     const avg = calculateAverage(arr);
     const desviacionesSquared = arr.map((val) => Math.pow(val - avg, 2));
     const sumSquares = desviacionesSquared.reduce((acc, val) => acc + val, 0);
     const varianza = sumSquares / arr.length;
-    return Number(Math.sqrt(varianza).toFixed(2));
+    return Number(Math.sqrt(varianza).toFixed(0));
 };
 
 const isSameDate = (date1, date2) => {

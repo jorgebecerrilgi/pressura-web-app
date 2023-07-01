@@ -5,11 +5,8 @@ import styles from "./PatientProfileCard.module.css";
 import Card from "@/components/Card";
 
 const PatientProfileCard = ({ isLoading, name, height, weight, sex, date, email }) => {
-    const birthday = date ? date.toDate().toLocaleDateString() : "Sin fecha";
-    const currentDateMiliseconds = new Date().getTime();
-    const birthdayMiliseconds = date ? date.toDate().getTime() : 0;
-    const originYear = new Date(0).getFullYear();
-    const age = date ? new Date(currentDateMiliseconds - birthdayMiliseconds).getFullYear() - originYear : "N/A";
+    const birthday = date ? date.toDate() : "Sin fecha";
+    const age = date ? Math.floor((new Date() - birthday) / (1000 * 60 * 60 * 24 * 365.25)) : "N/A";
 
     const firstLetter = name ? name.charAt(0).toUpperCase() : ".";
     const iconColorHue = name
@@ -47,7 +44,7 @@ const PatientProfileCard = ({ isLoading, name, height, weight, sex, date, email 
                         <li className={styles.title}>Sexo</li>
                         <li>{sex === null ? "N/A" : sex === 0 ? "Femenino" : "Masculino"}</li>
                         <li className={styles.title}>Fecha de Nacimiento</li>
-                        <li>{birthday}</li>
+                        <li>{birthday?.toLocaleDateString()}</li>
                         <li className={styles.title}>Correo Electrónico</li>
                         <li>{email}</li>
                     </ul>
