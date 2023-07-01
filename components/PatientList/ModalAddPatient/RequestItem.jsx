@@ -6,6 +6,7 @@ import ModalConfirm from "@/components/ModalConfirm";
 import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/src/firebase";
 import { AppContext } from "@/app/ContextProvider";
+import { toast } from "react-hot-toast";
 
 const RequestAction = {
     Accept: 0,
@@ -16,7 +17,7 @@ const fetchDoctorName = async (doctorUID) => {
     const doctorDocRef = doc(db, "Doctor", doctorUID);
     const doctorSnap = await getDoc(doctorDocRef);
     if (!doctorSnap.exists()) {
-        throw new Error("No se pudo encontrar la información del Doctor de la sesión actual.");
+        throw new Error("Hubo un problema con tu sesión. Recarga la página e inténtalo de nuevo.");
     }
     return doctorSnap.data().Nombre || "Sin Nombre";
 };
@@ -26,7 +27,7 @@ const acceptRequest = async (requestID, doctorName) => {
     try {
         await updateDoc(docRef, { Relacion: 3, NombreDoctor: doctorName });
     } catch (err) {
-        throw new Error("No se pudo actualizar el documento de la solicitud.");
+        throw new Error("Hubo un problema al aceptar la solicitud. Inténtalo de nuevo.");
     }
 };
 
@@ -35,7 +36,7 @@ const deleteRequest = async (requestID) => {
     try {
         await deleteDoc(docRef);
     } catch (err) {
-        throw new Error("No se pudo eliminar el documento de la solicitud");
+        throw new Error("Hubo un problema al eliminar la solicitud. Inténtalo de nuevo.");
     }
 };
 
@@ -60,8 +61,9 @@ const RequestItem = ({ name, email, docID, onResolved }) => {
             }
             close();
             onResolved();
+            toast.success(`Solicitud ${accept ? "aceptada" : "eliminada"} correctamente.`);
         } catch (err) {
-            console.error(err);
+            toast.error(err.message);
         }
     };
     const close = () => {
