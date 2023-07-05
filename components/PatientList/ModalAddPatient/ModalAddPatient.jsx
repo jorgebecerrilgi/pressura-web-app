@@ -9,6 +9,7 @@ import RequestItem from "./RequestItem";
 import { AppContext } from "@/app/ContextProvider";
 import { addDoc, collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
 import { db } from "@/src/firebase";
+import { Toaster, toast } from "react-hot-toast";
 
 const fetchRequests = async (doctorEmail) => {
     const col = collection(db, "PacienteConDoctores");
@@ -22,12 +23,12 @@ const createRequest = async (doctorEmail, patientEmail, doctorUID) => {
         query(col, where("IDDoctor", "==", doctorEmail), where("IDPaciente", "==", patientEmail))
     );
     if (snap.size > 0) {
-        throw new Error("La solicitud que intentas crear ya existe.");
+        throw new Error("La solicitud que intentas crear ya existe, o el usuario con ese correo ya es tu paciente.");
     }
     const doctorDocRef = doc(db, "Doctor", doctorUID);
     const doctorSnap = await getDoc(doctorDocRef);
     if (!doctorSnap.exists()) {
-        throw new Error("No se pudo encontrar la información del Doctor de la sesión actual.");
+        throw new Error("Hubo un problema con tu sesión. Intenta de nuevo o recarga la página.");
     }
     const doctorName = doctorSnap.data().Nombre || "Sin Nombre";
     try {
@@ -53,8 +54,12 @@ const ModalAddPatient = ({ open, onClose }) => {
     useEffect(() => {
         if (account === null || open === false) return;
         const fetchData = async () => {
-            const requestsArr = await fetchRequests(account.email);
-            setRequests(requestsArr);
+            try {
+                const requestsArr = await fetchRequests(account.email);
+                setRequests(requestsArr);
+            } catch (err) {
+                toast.error("Hubo un problema al cargar las solicitudes. Recarga la página.")
+            }
         };
         fetchData();
     }, [account, open]);
@@ -72,12 +77,13 @@ const ModalAddPatient = ({ open, onClose }) => {
             await createRequest(account.email, patientID, account.uid);
             onClose();
         } catch (err) {
-            console.error(err);
+            toast.error(err.message);
         }
     };
 
     return (
         <Modal className={styles.addPatientCard} open={open} onClose={onClose}>
+            <div><Toaster/></div>
             <ul className={styles.listSections}>
                 <li className={tabIndex === 0 ? styles.selected : ""}>
                     <button type="button" onClick={() => setTabIndex(0)}>

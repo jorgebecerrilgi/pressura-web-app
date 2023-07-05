@@ -12,6 +12,7 @@ import Skeleton from "../Skeleton";
 
 const fetchInformation = async (email) => {
     const snap = await getDocs(query(collection(db, "Paciente"), where("IDPaciente", "==", email)));
+    console.log(snap.docs[0].data());
     return snap.size > 0 ? snap.docs[0] : {};
 };
 
@@ -75,6 +76,7 @@ const PatientInformation = () => {
     }, 0);
 
     const birthday = information?.FechaNacimiento?.toDate();
+    console.log(birthday);
     const age = Math.floor((new Date() - birthday) / (1000 * 60 * 60 * 24 * 365.25));
 
     return (

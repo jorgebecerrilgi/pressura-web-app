@@ -4,7 +4,7 @@ import styles from "./page.module.css";
 import PatientCard from "./PatientCard";
 import PatientProfileCard from "./PatientProfileCard";
 import { useContext, useEffect, useState } from "react";
-import { doc, getDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
 import { db } from "@/src/firebase";
 import { useSearchParams } from "next/navigation";
 import { AppContext } from "../ContextProvider";
@@ -34,7 +34,6 @@ const Patient = () => {
             try {
                 const patientInformation = await fetchInformation(docID);
                 setInformation(patientInformation);
-                console.log(patientInformation);
             } catch (err) {
                 console.error(err);
             }
@@ -44,7 +43,7 @@ const Patient = () => {
 
     return (
         <main className={styles.content}>
-            <PatientCard />
+            <PatientCard email={information?.CorreoElectronico} />
             <PatientProfileCard
                 isLoading={information === null}
                 name={information?.Nombre}
